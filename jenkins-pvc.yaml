@@ -1,10 +1,23 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: ~/jenkins_data
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jenkins-pvc
+  namespace: jenkins
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
