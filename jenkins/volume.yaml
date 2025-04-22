@@ -21,7 +21,7 @@ spec:
     - ReadWriteOnce
   nfs:
     path: /jenkins_data
-    server: blindspot.local
+    server: blindspot.local:2049
   
 ---
 apiVersion: v1
