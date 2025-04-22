@@ -5,6 +5,9 @@ services:
     container_name: nfs
     restart: unless-stopped
     privileged: true
+    cap_add:
+      - SYS_ADMIN
+      - SETPCAP
     environment:
       - SHARED_DIRECTORY=/data
     volumes:
