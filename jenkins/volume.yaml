@@ -20,7 +20,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    path: /var/nfs/jenkins_data
+    path: /home/douglas444/nfs-storage/jenkins_data
     server: 192.168.100.22
   
 ---
