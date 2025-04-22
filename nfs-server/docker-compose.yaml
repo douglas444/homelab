@@ -11,4 +11,3 @@ services:
       - /home/douglas444/nfs-storage:/data
     ports:
       - 2049:2049
-      - 111:111
