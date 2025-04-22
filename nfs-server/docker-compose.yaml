@@ -9,5 +9,7 @@ services:
       - SHARED_DIRECTORY=/data
     volumes:
       - /home/douglas444/nfs-storage:/data
+      - /proc/fs/nfsd:/proc/fs/nfsd
     ports:
       - 2049:2049
+      - 111:111
