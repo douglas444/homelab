@@ -1,31 +1,31 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jenkins-pv-volume
+  name: nexus-pv-volume
   labels:
-    type: local
+      name: local
 spec:
   claimRef:
-    name: jenkins-pv-claim
-    namespace: jenkins
+    name: nexus-pv-claim
+    namespace: nexus
   capacity:
-    storage: 5Gi
+      storage: 40Gi
   accessModes:
-    - ReadWriteOnce
+      - ReadWriteOnce
   nfs:
-    path: /home/douglas444/nfs-storage/jenkins_data
+    path: /home/douglas444/nfs-storage/nexus_data
     server: blindspot.local
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jenkins-pv-claim
-  namespace: jenkins
+  name: nexus-pv-claim
+  namespace: nexus
 spec:
   storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 40Gi

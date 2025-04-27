@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+  namespace: nexus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus-registry
+  template:
+      metadata:
+        labels:
+            app: nexus-registry
+      spec:
+        securityContext:
+          fsGroup: 1000
+          runAsUser: 1000
+        serviceAccountName: nexus-admin
+        containers:
+          - name: nexus
+            image: sonatype/nexus3
+            resources:
+              limits:
+                memory: "2Gi"
+                cpu: "1000m"
+              requests:
+                memory: "500Mi"
+                cpu: "500m"
+            ports:
+                - name: httpport
+                  containerPort: 8081
+            volumeMounts:
+            - name: nexus-data
+              mountPath: /nexus-data
+              subPath: sonatype
+        volumes:
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nexus-pv-claim
