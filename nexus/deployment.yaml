@@ -19,21 +19,29 @@ spec:
         serviceAccountName: nexus-admin
         containers:
           - name: nexus
-            image: sonatype/nexus3
+            image: sonatype/nexus3:latest
+            env:
+            - name: MIN_HEAP
+              value: "2g"
+            - name: MAX_HEAP
+              value: "4g"
+            - name: INSTALL4J_ADD_VM_PARAMS
+              value: "-XX:MaxDirectMemorySize=2g"
             resources:
               limits:
-                memory: "2Gi"
-                cpu: "1000m"
+                memory: "6Gi"
+                cpu: "1200m"
               requests:
-                memory: "500Mi"
-                cpu: "500m"
+                memory: "4Gi"
+                cpu: "800m"
             ports:
                 - name: httpport
                   containerPort: 8081
+                - name: httpport-docker
+                  containerPort: 8082
             volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
-              subPath: sonatype
         volumes:
         - name: nexus-data
           persistentVolumeClaim:
