@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
       app: nexus-registry
-  type: NoddePort
+  type: NodePort
   ports:
   - name: httpport
     protocol: TCP
