@@ -1,0 +1,44 @@
+global:
+  enabled: true
+  tlsDisable: true
+  namespace: vault
+
+ui:
+  enabled: true
+  serviceType: NodePort
+  serviceNodePort: 30802
+  externalIPs:
+    - tinyboss.local
+
+server:
+  ha:
+    enabled: false
+
+  standalone:
+    enabled: true
+    config: |
+      ui = true
+
+      storage "raft" {
+        path = "/vault/data"
+      }
+
+      listener "tcp" {
+        address = "0.0.0.0:8200"
+        cluster_address = "0.0.0.0:8201"
+        tls_disable = "true"
+      }
+
+      disable_mlock = true
+
+  volumes:
+    - name: vault-storage
+      persistentVolumeClaim:
+        claimName: vault-pv-claim
+
+  volumeMounts:
+    - name: vault-storage
+      mountPath: /vault/data
+
+  dataStorage:
+    enabled: false
