@@ -1,0 +1,20 @@
+webapiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: vault-connection
+  namespace: my-first-mcp-server
+spec:
+  address: http://vault.vault.svc.cluster.local:8200
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: my-first-mcp-server
+spec:
+  vaultConnectionRef: vault-connection
+  method: kubernetes
+  mount: kubernetes
+  kubernetes:
+    role: kubernetes-connection-role
+    serviceAccount: default
