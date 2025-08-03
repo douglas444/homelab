@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drill-db
+  namespace: drill
+  labels:
+    app: drill-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drill-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: drill-db
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      containers:
+      - image: mysql:9
+        name: drill-db
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: drill-db-root-password
+              key: root-password
+        ports:
+        - containerPort: 3306
+          name: drill-db
+        volumeMounts:
+        - name: drill-db-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: drill-db-persistent-storage
+        persistentVolumeClaim:
+          claimName: drill-db-pv-claim
