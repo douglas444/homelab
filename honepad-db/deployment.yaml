@@ -1,43 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: notepad-db
-  namespace: notepad
+  name: honepad-db
+  namespace: honepad
   labels:
-    app: notepad-db
+    app: honepad-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: notepad-db
+      app: honepad-db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: notepad-db
+        app: honepad-db
     spec:
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
       containers:
       - image: mongo:latest
-        name: notepad-db
+        name: honepad-db
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: root
         - name: MONGO_INITDB_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: notepad-db-root-password
+              name: honepad-db-root-password
               key: root-password
         ports:
         - containerPort: 27017
-          name: notepad-db
+          name: honepad-db
         volumeMounts:
-        - name: notepad-db-persistent-storage
+        - name: honepad-db-persistent-storage
           mountPath: /data/db
       volumes:
-      - name: notepad-db-persistent-storage
+      - name: honepad-db-persistent-storage
         persistentVolumeClaim:
-          claimName: notepad-db-pv-claim
+          claimName: honepad-db-pv-claim
