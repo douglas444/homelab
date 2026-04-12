@@ -1,0 +1,16 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: honepad-events
+  namespace: kafka-strimzi
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  topicName: honepad_events
+  partitions: 12
+  replicas: 2
+  config:
+    retention.ms: "604800000" #7 days
+    min.insync.replicas: "1"
+    compression.type: lz4
+    cleanup.policy: delete
