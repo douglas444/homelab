@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: combined-pool
-  namespace: kafka-strimzi # <-- Fixado para o namespace correto
+  namespace: kafka-strimzi
   labels:
     strimzi.io/cluster: my-cluster
 spec:
