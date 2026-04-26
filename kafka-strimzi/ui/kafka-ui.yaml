@@ -34,6 +34,18 @@ spec:
             secretKeyRef:
               name: kafka-ui-secrets
               key: kafka_cluster_0_metrics_port
+        - name: AUTH_TYPE
+          value: "LOGIN_FORM"
+        - name: SPRING_SECURITY_USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: kafka-ui-secrets
+              key: ui_username
+        - name: SPRING_SECURITY_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kafka-ui-secrets
+              key: ui_password
 ---
 apiVersion: v1
 kind: Service
