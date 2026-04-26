@@ -1,0 +1,31 @@
+apiVersion: clickhouse.com/v1alpha1
+kind: ClickHouseCluster
+metadata:
+  name: clickhouse
+  namespace: honepad-events-projector
+spec:
+  replicas: 1
+  settings:
+    defaultUserPassword:
+      passwordType: password
+      secret:
+        name: clickhouse-password
+        key: password
+  dataVolumeClaimSpec:
+    storageClassName: nfs-storage
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 5Gi
+  podTemplate: {}
+  containerTemplate:
+    resources:
+      requests:
+        cpu: "500m"
+        memory: 1Gi
+      limits:
+        cpu: "1"
+        memory: 2Gi
+  keeperClusterRef:
+    name: clickhouse-keeper
