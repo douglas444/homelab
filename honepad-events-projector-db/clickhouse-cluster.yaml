@@ -12,7 +12,10 @@ spec:
         name: clickhouse-password
         key: password
   dataVolumeClaimSpec:
-    storageClassName: nfs-storage
+    selector:
+      matchLabels:
+        role: clickhouse-db
+    storageClassName: clickhouse-nfs-storage
     accessModes:
       - ReadWriteOnce
     resources:

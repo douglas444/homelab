@@ -6,8 +6,9 @@ metadata:
   name: clickhouse-db-pv-volume
   labels:
     type: local
+    role: clickhouse-db
 spec:
-  storageClassName: nfs-storage
+  storageClassName: clickhouse-nfs-storage
   capacity:
     storage: 5Gi
   accessModes:
@@ -23,8 +24,9 @@ metadata:
   name: clickhouse-keeper-pv-volume
   labels:
     type: local
+    role: clickhouse-keeper
 spec:
-  storageClassName: nfs-storage
+  storageClassName: clickhouse-nfs-storage
   capacity:
     storage: 4Gi
   accessModes:
@@ -32,11 +34,3 @@ spec:
   nfs:
     path: /home/douglas444/nfs-storage/honepad-events-projector-keeper-db_data
     server: blindspot.local
----
-# NFS Storage Class
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: nfs-storage
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer

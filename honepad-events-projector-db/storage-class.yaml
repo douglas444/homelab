@@ -1,0 +1,10 @@
+# NFS Storage Class
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: clickhouse-nfs-storage
+provisioner: kubernetes.io/no-provisioner
+# For static PVs, WaitForFirstConsumer can cause a deadlock with no-provisioner
+# because PVC waits for pod scheduling and pod waits for PVC binding.
+# Use Immediate so the static PVs are bound as-is (or use a dynamic provisioner).
+volumeBindingMode: Immediate

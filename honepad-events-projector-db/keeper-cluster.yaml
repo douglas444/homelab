@@ -6,7 +6,10 @@ metadata:
 spec:
   replicas: 1
   dataVolumeClaimSpec:
-    storageClassName: nfs-storage
+    selector:
+      matchLabels:
+        role: clickhouse-keeper
+    storageClassName: clickhouse-nfs-storage
     accessModes:
       - ReadWriteOnce
     resources:
